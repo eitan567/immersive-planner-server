@@ -4,8 +4,8 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "postbuild": "chmod +x dist/openai-server.js",
-    "start": "node dist/openai-server.js"
+    "postbuild": "chmod +x dist/index.js",
+    "start": "deno run --allow-net --allow-env --allow-read index.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.4.1",
