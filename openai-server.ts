@@ -562,10 +562,10 @@ private validateResponse(response: string): boolean {
       case "topic":
         prompt += "הצע נושא יחידה מתאים שיתאים להוראה בחדר אימרסיבי.";
         break;
-      case "content":
+      case "contentGoals":
         prompt += "הצע תיאור מפורט לפעילות לימודית שתתאים לחדר אימרסיבי.";
         break;
-      case "goals":
+      case "skillGoals":
         prompt += "הצע מטרות למידה ספציפיות ומדידות.";
         break;
       case "duration":

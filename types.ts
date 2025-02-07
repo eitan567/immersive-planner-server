@@ -1,6 +1,6 @@
 export interface GenerateSuggestionArgs {
   context: string;
-  type: 'topic' | 'content' | 'goals' | 'duration' | 'activity';
+  type: 'topic' | 'duration' | 'priorKnowledge' | 'gradeLevel' | 'contentGoals' | 'skillGoals' | 'position' | 'activity';
   currentValue: string;
   message?: string;
 }
