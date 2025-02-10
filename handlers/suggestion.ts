@@ -2,10 +2,11 @@ import { McpError, ErrorCode } from "@modelcontextprotocol/sdk/types.js";
 import { ToolHandler } from "./types.ts";
 import { AIProvider } from "../providers/types.ts";
 import { generateSuggestionPrompt } from "../prompts/index.ts";
+import { mapPositionToEnglish, mapSpaceUsageToEnglish, mapScreenTypeToEnglish } from "../utils/mappings.ts";
 
 export interface GenerateSuggestionArgs {
   context: string;
-  type: 'topic' | 'content' | 'goals' | 'duration' | 'activity';
+  type: 'topic' | 'content' | 'goals' | 'duration' | 'activity' | 'position';
   currentValue: string;
   message?: string;
 }
@@ -20,7 +21,7 @@ export class SuggestionHandler implements ToolHandler<GenerateSuggestionArgs> {
       typeof a.context === "string" &&
       typeof a.currentValue === "string" &&
       typeof a.type === "string" &&
-      ["topic", "content", "goals", "duration", "activity"].includes(a.type) &&
+      ["topic", "content", "goals", "duration", "activity", "position"].includes(a.type) &&
       (a.message === undefined || typeof a.message === "string")
     );
   }
@@ -30,8 +31,15 @@ export class SuggestionHandler implements ToolHandler<GenerateSuggestionArgs> {
       const prompt = generateSuggestionPrompt(args);
       const suggestion = await this.provider.generateCompletion(prompt);
       
+      let mappedSuggestion = suggestion;
+      
+      // Map the Hebrew values to English for specific field types
+      if (args.type === 'position') {
+        mappedSuggestion = mapPositionToEnglish(suggestion.trim());
+      }
+
       return {
-        content: [{ type: "text", text: suggestion }]
+        content: [{ type: "text", text: mappedSuggestion }]
       };
     } catch (error) {
       throw new McpError(

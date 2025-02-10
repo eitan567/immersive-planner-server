@@ -1,17 +1,4 @@
-const VALID_SPACE_USAGE = {
-  'מליאה': 'whole',
-  'עבודה בקבוצות': 'groups',
-  'עבודה אישית': 'individual',
-  'משולב': 'mixed'
-};
-
-const VALID_SCREEN_TYPES = {
-  'סרטון': 'video',
-  'תמונה': 'image',
-  'פדלט': 'padlet',
-  'אתר': 'website',
-  'ג\'ניאלי': 'genially'
-};
+import { VALID_POSITION_TYPES, VALID_SPACE_USAGE, VALID_SCREEN_TYPES } from '../utils/mappings.ts';
 
 export interface PromptConfig {
   context: string;
@@ -22,7 +9,7 @@ export function generateSuggestionPrompt(config: {
   context: string;
   currentValue: string;
   message?: string;
-  type: 'topic' | 'content' | 'goals' | 'duration' | 'activity';
+  type: 'topic' | 'content' | 'goals' | 'duration' | 'activity' | 'position';
 }): string {
   let prompt = `בהתבסס על ההקשר הבא: "${config.context}"
 והתוכן הנוכחי: "${config.currentValue || "ריק"}"`;
@@ -47,6 +34,15 @@ export function generateSuggestionPrompt(config: {
       break;
     case "activity":
       prompt += "הצע פעילות לימודית שתנצל את היכולות הייחודיות של החדר האימרסיבי.";
+      break;
+    case "position":
+      prompt += `חובה לבחור ערך אחד בדיוק מתוך האפשרויות הבאות בלבד:
+* פתיחת נושא
+* הקנייה
+* תרגול
+* סיכום נושא
+
+אסור להציע ערכים אחרים! חובה לבחור מהרשימה הזו בדיוק.`;
       break;
     default:
       prompt += "הצע שיפור או חלופה לתוכן הנוכחי.";
@@ -104,6 +100,14 @@ export function generateUpdatePrompt(config: {
      * עבודה בקבוצות
      * עבודה אישית
      * משולב
+
+5. הנחיות למיקום בתוכן הלמידה (שדה position):
+   חובה לבחור אפשרות אחת -בלבד- מתוך הרשימה הבאה:
+   * פתיחת נושא
+   * הקנייה
+   * תרגול
+   * סיכום נושא
+
    - חובה לבחור אפשרות אחת -בלבד- מתוך הרשימה הבאה עבור כל מסך:
      * סרטון
      * תמונה
@@ -171,6 +175,15 @@ ${config.message}
     "fieldToUpdate": "gradeLevel",
     "userResponse": "הסבר על השינוי",
     "newValue": "ערך מדויק"
+  }
+]
+
+דוגמה לתשובה מלאה במקרה שהמשתמש ביקש להוסיף או להציע או לנסח מיקום בתוכן:
+[
+  {
+    "fieldToUpdate": "position",
+    "userResponse": "עדכנתי את המיקום בתוכן כדי לשקף טוב יותר את מטרת היחידה <שדה: מיקום בתוכן>",
+    "newValue": "הקנייה"
   }
 ]
 

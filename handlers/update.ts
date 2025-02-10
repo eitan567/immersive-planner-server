@@ -2,6 +2,7 @@ import { McpError, ErrorCode } from "@modelcontextprotocol/sdk/types.js";
 import { ToolHandler, cleanJsonResponse } from "./types.ts";
 import { AIProvider } from "../providers/types.ts";
 import { generateUpdatePrompt } from "../prompts/index.ts";
+import { mapPositionToEnglish, mapSpaceUsageToEnglish, mapScreenTypeToEnglish } from "../utils/mappings.ts";
 
 export interface UpdateLessonFieldArgs {
   message: string;
@@ -50,8 +51,36 @@ export class UpdateHandler implements ToolHandler<UpdateLessonFieldArgs> {
       const response = await this.provider.generateCompletion(prompt);
       const cleanedResponse = cleanJsonResponse(response);
       
+      // Parse the cleaned response
+      const parsedResponse = JSON.parse(cleanedResponse);
+      
+      // Map Hebrew values to English for specific fields
+      const mappedResponse = parsedResponse.map((item: any) => {
+        if (item.fieldToUpdate === 'position') {
+          return {
+            ...item,
+            newValue: mapPositionToEnglish(item.newValue)
+          };
+        }
+        if (item.fieldToUpdate.includes('.screenUsage')) {
+          return {
+            ...item,
+            newValue: mapSpaceUsageToEnglish(item.newValue)
+          };
+        }
+        if (item.fieldToUpdate.includes('.screen1') || 
+            item.fieldToUpdate.includes('.screen2') || 
+            item.fieldToUpdate.includes('.screen3')) {
+          return {
+            ...item,
+            newValue: mapScreenTypeToEnglish(item.newValue)
+          };
+        }
+        return item;
+      });
+
       return {
-        content: [{ type: "text", text: cleanedResponse }]
+        content: [{ type: "text", text: JSON.stringify(mappedResponse) }]
       };
     } catch (error) {
       throw new McpError(
