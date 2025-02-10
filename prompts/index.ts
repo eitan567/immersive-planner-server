@@ -188,32 +188,32 @@ ${config.message}
   },
   {
     "fieldToUpdate": "opening.0.screen1",
-    "userResponse": "הוספתי סרטון לפעילות פתיחה <שדה: פתיחה - סרטון>",
+    "userResponse": "הוספתי סרטון לפעילות פתיחה למסך 1 <שדה: פתיחה - סרטון>",
     "newValue": "סרטון"
   },
   {
     "fieldToUpdate": "opening.0.screen1Description",
-    "userResponse": "הוספתי סרטון לפעילות פתיחה <שדה: פתיחה - תיאור מסך 1>",
+    "userResponse": "הוספתי תיאור למסך 1 <שדה: פתיחה - תיאור מסך 1>",
     "newValue": "סרטון על תהליך הכוכבים בשמי הלילה"
   },
   {
     "fieldToUpdate": "opening.0.screen2",
-    "userResponse": "הוספתי תמונה לפעילות פתיחה <שדה: פתיחה - תמודה>",
+    "userResponse": "הוספתי תמונה לפעילות פתיחה למסך 2 <שדה: פתיחה - תמודה>",
     "newValue": "תמונה"
   },
    {
     "fieldToUpdate": "opening.0.screen2Description",
-    "userResponse": "הוספתי תמונה לפעילות פתיחה <שדה: פתיחה - תיאור מסך 2>",
+    "userResponse": "הוספתי תיאור למסך 2 <שדה: פתיחה - תיאור מסך 2>",
     "newValue": "תמונה של כוכבים בשמי הלילה"
   },
   {
     "fieldToUpdate": "opening.0.screen3",
-    "userResponse": "הוספתי פדלט לפעילות פתיחה <שדה: פתיחה - פדלט>",
+    "userResponse": "הוספתי פדלט לפעילות פתיחה למסך 3 <שדה: פתיחה - פדלט>",
     "newValue": "פדלט"
   },
   {
     "fieldToUpdate": "opening.0.screen3Description",
-    "userResponse": "הוספתי פדלט לפעילות פתיחה <שדה: פתיחה - תיאור מסך 3>",
+    "userResponse": "הוספתי תיאור למסך 3 <שדה: פתיחה - תיאור מסך 3>",
     "newValue": "כאן תיאור מפורט של פדלט"
   }
 ]
