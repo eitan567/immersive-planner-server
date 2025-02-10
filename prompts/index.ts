@@ -110,6 +110,7 @@ export function generateUpdatePrompt(config: {
      * פדלט
      * אתר
      * ג'ניאלי
+   - תיאור מפורט של תוכן המסך ואופן השימוש בו
    - מה המורה עושה
 
 [מיפוי שדות]
@@ -191,20 +192,36 @@ ${config.message}
     "newValue": "סרטון"
   },
   {
+    "fieldToUpdate": "opening.0.screen1Description",
+    "userResponse": "הוספתי סרטון לפעילות פתיחה <שדה: פתיחה - תיאור מסך 1>",
+    "newValue": "סרטון על תהליך הכוכבים בשמי הלילה"
+  },
+  {
     "fieldToUpdate": "opening.0.screen2",
     "userResponse": "הוספתי תמונה לפעילות פתיחה <שדה: פתיחה - תמודה>",
     "newValue": "תמונה"
+  },
+   {
+    "fieldToUpdate": "opening.0.screen2Description",
+    "userResponse": "הוספתי תמונה לפעילות פתיחה <שדה: פתיחה - תיאור מסך 2>",
+    "newValue": "תמונה של כוכבים בשמי הלילה"
   },
   {
     "fieldToUpdate": "opening.0.screen3",
     "userResponse": "הוספתי פדלט לפעילות פתיחה <שדה: פתיחה - פדלט>",
     "newValue": "פדלט"
+  },
+  {
+    "fieldToUpdate": "opening.0.screen3Description",
+    "userResponse": "הוספתי פדלט לפעילות פתיחה <שדה: פתיחה - תיאור מסך 3>",
+    "newValue": "כאן תיאור מפורט של פדלט"
   }
 ]
 
 כללים בנוגע לתשובה של פעילות פתיחה או גוף שיעור או סיכום:
 1. אין להחזיר יותר מערך אחד של השדה שימוש במרחב בפעילות כלשהי - לדוגמא opening.0.screenUsage can be only one for opening.0
 2. אין להחזיר יותר מערך אחד של השדה מסך 1 בפעילות כלשהי - לדוגמא opening.0.screen1 can be only one for opening.0
+3. שדה המסך והתיאור שלו חייבים להיות זוג תקין - אם יש מסך חייב להיות גם תיאור ולהיפך
 כדי ליצור כמה פעילויות פתיחה שונות יש לקדם אצ האינדקס אחרי סוג הפעילות - לדוגמא opening.0, opening.1, opening.2 וכו'
 
 
