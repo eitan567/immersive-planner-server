@@ -114,6 +114,7 @@ export function generateUpdatePrompt(config: {
      * פדלט
      * אתר
      * ג'ניאלי
+     * מצגת
    - תיאור מפורט של תוכן המסך ואופן השימוש בו
    - מה המורה עושה
 

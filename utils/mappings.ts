@@ -17,7 +17,8 @@ export const VALID_SCREEN_TYPES = {
   'תמונה': 'image',
   'פדלט': 'padlet',
   'אתר': 'website',
-  'ג\'ניאלי': 'genially'
+  'ג\'ניאלי': 'genially',
+  'מצגת': 'presentation'
 } as const;
 
 export function mapPositionToEnglish(hebrewValue: string): string {
