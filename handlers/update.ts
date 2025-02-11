@@ -55,32 +55,34 @@ export class UpdateHandler implements ToolHandler<UpdateLessonFieldArgs> {
       const parsedResponse = JSON.parse(cleanedResponse);
       
       // Map Hebrew values to English for specific fields
-      const mappedResponse = parsedResponse.map((item: any) => {
-        if (item.fieldToUpdate === 'position') {
-          return {
-            ...item,
-            newValue: mapPositionToEnglish(item.newValue)
-          };
-        }
-        if (item.fieldToUpdate.includes('.screenUsage')) {
-          return {
-            ...item,
-            newValue: mapSpaceUsageToEnglish(item.newValue)
-          };
-        }
-        if (item.fieldToUpdate.includes('.screen1') || 
-            item.fieldToUpdate.includes('.screen2') || 
-            item.fieldToUpdate.includes('.screen3')) {
-          return {
-            ...item,
-            newValue: mapScreenTypeToEnglish(item.newValue)
-          };
-        }
-        return item;
-      });
+      //const mappedResponse = parsedResponse.map((item: any) => {
+        // if (item.fieldToUpdate === 'position') {
+        //   return {
+        //     ...item,
+        //     newValue: mapPositionToEnglish(item.newValue)
+        //   };
+        // }
+        // if (item.fieldToUpdate.includes('.screenUsage')) {
+        //   return {
+        //     ...item,
+        //     newValue: mapSpaceUsageToEnglish(item.newValue)
+        //   };
+        // }
+        // if (item.fieldToUpdate.includes('.screen1') || 
+        //     item.fieldToUpdate.includes('.screen2') || 
+        //     item.fieldToUpdate.includes('.screen3')) {
+        //   return {
+        //     ...item,
+        //     newValue: mapScreenTypeToEnglish(item.newValue)
+        //   };
+        // }
+
+       // console.log('No mapping for field :', item);
+       // return item;
+     // });
 
       return {
-        content: [{ type: "text", text: JSON.stringify(mappedResponse) }]
+        content: [{ type: "text", text: JSON.stringify(parsedResponse) }]
       };
     } catch (error) {
       throw new McpError(
