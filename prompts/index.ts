@@ -9,7 +9,7 @@ export function generateSuggestionPrompt(config: {
   context: string;
   currentValue: string;
   message?: string;
-  type: 'topic' | 'content' | 'goals' | 'duration' | 'activity' | 'position';
+  type: 'topic' | 'content' | 'goals' | 'duration' | 'activity' | 'position' | 'contentGoals' | 'skillGoals' | 'priorKnowledge' | 'gradeLevel';
 }): string {
   let prompt = `בהתבסס על ההקשר הבא: "${config.context}"
 והתוכן הנוכחי: "${config.currentValue || "ריק"}"`;
@@ -26,8 +26,17 @@ export function generateSuggestionPrompt(config: {
     case "content":
       prompt += "הצע תיאור מפורט לפעילות לימודית שתתאים לחדר אימרסיבי.";
       break;
-    case "goals":
-      prompt += "הצע מטרות למידה ספציפיות ומדידות.";
+    case "contentGoals":
+      prompt += "הצע מטרות למידה ספציפיות ומדידות ברמת התוכן.";
+      break;
+    case "skillGoals":
+      prompt += "הצע מטרות למידה ספציפיות ומדידות ברמת המיומנויות.";
+      break;
+    case "priorKnowledge":
+      prompt += "הצע ידע קודם נדרש לפעילות זו.";
+      break;
+    case "gradeLevel":
+      prompt += "הצע שכבת גיל מתאימה לפעילות זו.";
       break;
     case "duration":
       prompt += "הצע משך זמן מתאים לפעילות זו, תוך התחשבות באופי הפעילות וקהל היעד.";

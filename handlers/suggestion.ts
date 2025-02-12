@@ -6,7 +6,7 @@ import { mapPositionToEnglish, mapSpaceUsageToEnglish, mapScreenTypeToEnglish } 
 
 export interface GenerateSuggestionArgs {
   context: string;
-  type: 'topic' | 'content' | 'goals' | 'duration' | 'activity' | 'position';
+  type: 'topic' | 'content' | 'goals' | 'duration' | 'activity' | 'position' | 'contentGoals' | 'skillGoals' | 'priorKnowledge' | 'gradeLevel';
   currentValue: string;
   message?: string;
 }
@@ -21,7 +21,7 @@ export class SuggestionHandler implements ToolHandler<GenerateSuggestionArgs> {
       typeof a.context === "string" &&
       typeof a.currentValue === "string" &&
       typeof a.type === "string" &&
-      ["topic", "content", "goals", "duration", "activity", "position"].includes(a.type) &&
+      ["topic", "content", "goals", "duration", "activity", "position", "contentGoals", "skillGoals", "priorKnowledge", "gradeLevel"].includes(a.type) &&
       (a.message === undefined || typeof a.message === "string")
     );
   }
