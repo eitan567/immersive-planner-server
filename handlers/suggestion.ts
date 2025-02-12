@@ -2,7 +2,7 @@ import { McpError, ErrorCode } from "@modelcontextprotocol/sdk/types.js";
 import { ToolHandler } from "./types.ts";
 import { AIProvider } from "../providers/types.ts";
 import { generateSuggestionPrompt } from "../prompts/index.ts";
-import { mapPositionToEnglish, mapSpaceUsageToEnglish, mapScreenTypeToEnglish } from "../utils/mappings.ts";
+import { mapPositionToEnglish} from "../utils/mappings.ts";
 
 export interface GenerateSuggestionArgs {
   context: string;
@@ -42,9 +42,25 @@ export class SuggestionHandler implements ToolHandler<GenerateSuggestionArgs> {
         content: [{ type: "text", text: mappedSuggestion }]
       };
     } catch (error) {
+      let hebrewError = "מצטער, נתקלנו בבעיה. אנא נסה שוב מאוחר יותר.";
+      
+      if (error instanceof Error) {
+        if (error.message.includes("Resource has been exhausted") || 
+            error.message.includes("quota")) {
+          hebrewError = "המערכת עמוסה כרגע. אנא נסה שוב בעוד מספר דקות.";
+        } else if (error.message.includes("Invalid")) {
+          hebrewError = "נראה שיש בעיה בבקשה. אנא בדוק את הפרטים ונסה שוב.";
+        }
+      }
+      
+      const originalError = error instanceof Error ? error.message : "Unknown error";
+      
       throw new McpError(
         ErrorCode.InternalError,
-        error instanceof Error ? error.message : "Failed to process suggestion request"
+        JSON.stringify({
+          message: hebrewError,
+          originalError: originalError
+        })
       );
     }
   }
