@@ -115,6 +115,7 @@ Answer ***ONLY*** in HEBREW! NO other languages allowed!
     }
 ]
 
+השדה "userResponse" הינו חובה גם כריק חובה להחזירו באובייקט ה JSON !!!
 
 כללי הטיפול בשדות:
 
