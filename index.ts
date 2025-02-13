@@ -15,39 +15,45 @@ switch (CONFIG.AI_PROVIDER.toLowerCase()) {
   case "openai":
     provider = new OpenAIProvider({
       apiKey: CONFIG.OPENAI_API_KEY,
-      model: CONFIG.OPENAI_MODEL
+      model: CONFIG.OPENAI_MODEL,
+      modelRetries: CONFIG.MODEL_RETRIES
     });
     break;
   case "anthropic":
     provider = new AnthropicProvider({
       apiKey: CONFIG.ANTHROPIC_API_KEY,
-      model: CONFIG.ANTHROPIC_MODEL
+      model: CONFIG.ANTHROPIC_MODEL,
+      modelRetries: CONFIG.MODEL_RETRIES
     });
     break;
   case "google":
     provider = new GoogleAIProvider({
       apiKey: CONFIG.GOOGLE_API_KEY,
-      model: CONFIG.GOOGLE_MODEL
+      model: CONFIG.GOOGLE_MODEL,
+      modelRetries: CONFIG.MODEL_RETRIES
     });
     break;
   case "lmstudio":
     provider = new LMStudioProvider({
       baseUrl: CONFIG.LM_STUDIO_BASE_URL,
       apiKey: CONFIG.LM_STUDIO_API_KEY,
-      model: CONFIG.LM_STUDIO_MODEL
+      model: CONFIG.LM_STUDIO_MODEL,
+      modelRetries: CONFIG.MODEL_RETRIES
     });
     break;
   case "deepseek":
     provider = new DeepSeekProvider({
       baseUrl: CONFIG.DEEPSEEK_BASE_URL,
       apiKey: CONFIG.DEEPSEEK_API_KEY,
-      model: CONFIG.DEEPSEEK_MODEL
+      model: CONFIG.DEEPSEEK_MODEL,
+      modelRetries: CONFIG.MODEL_RETRIES
     });
     break;
   case "ollama":
     provider = new OllamaProvider({
       baseUrl: CONFIG.OLLAMA_BASE_URL,
-      model: CONFIG.OLLAMA_MODEL
+      model: CONFIG.OLLAMA_MODEL,
+      modelRetries: CONFIG.MODEL_RETRIES
     });
     break;
   default:

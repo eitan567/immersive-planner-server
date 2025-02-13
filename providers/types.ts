@@ -6,7 +6,8 @@ export interface AIProvider {
     timeout?: number;
     baseUrl?: string;
     apiKey?: string;
-    model?: string;
+    model?: string | string[];
+    modelRetries?: number;
   }
   
   export const DEFAULT_TIMEOUT = 180000; // 3 minutes

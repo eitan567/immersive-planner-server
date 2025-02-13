@@ -745,7 +745,8 @@ function createProvider(): AIProvider {
       }
       return new GoogleAIProvider({
         apiKey: CONFIG.GOOGLE_API_KEY,
-        model: CONFIG.GOOGLE_MODEL
+        model: CONFIG.GOOGLE_MODEL,
+        modelRetries: CONFIG.MODEL_RETRIES
       });
     }
     case "deepseek": {
