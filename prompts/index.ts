@@ -103,9 +103,14 @@ export function generateUpdatePrompt(config: {
     .join('\n');
 
   return `
-most important!!!
-Answer ***ONLY*** in HEBREW! NO other languages allowed!
-  
+
+STRICT INSTRUCTION: 
+  Answer must ***ONLY*** be in HEBREW! NO other languages allowed!
+  You must respond with a single array of JSON objects. 
+  The JSON objects must contain exactly these 3 fields: 'field', 'chat', 'value'. 
+  Do not include any other text. Do not explain. Do not acknowledge. 
+  Format: {'field': '', 'chat': '', 'value': ''}
+
 אתה עוזר למורים לשפר את תוכן השיעור שלהם בנושא יצירה של חדר אמרסיבי.
 
 הנחיות חשובות לגבי הקטגוריה:
