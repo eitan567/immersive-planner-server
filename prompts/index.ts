@@ -122,6 +122,7 @@ export function generateUpdatePrompt(config: {
         Format: {'field': '', 'chat': '', 'value': ''}
         there must be a tag like "<שדה: נושא היחידה>" at the end of each chat message that describes the field.
         if the user asks to update the category, you must choose a category from the list and update the 'category' field only.
+        אם המשתמש מבקש לעדכן את כל השדות והשדה קטגוריה ריק ,עלייך לבחור מאחת הקטגוריות המוגדרות באופן אקראי ולמלא את כול השדות לפיה. אבל אם יש ערך בקטגוריה יש לבחור קטגוריה ולהשלים את השדות בהתאם.
         
 
         THREE VERY IMPORTANT RULES !!!
@@ -129,8 +130,7 @@ export function generateUpdatePrompt(config: {
           if the user asks you to update all fields, you must update all fields - meaning all fields in the lesson plan MUST be updated.
           if the user asks you to update the 'נושא היחידה' field and the category field is full, you must update the 'נושא היחידה' according to the selected category.
           אם המשתמש מבקש לעדכן את השדה 'נושא היחידה' והשדה קטגוריה מלא, עליך לעדכן את 'נושא היחידה' לפי הקטגוריה שנבחרה.
-
-
+          
       אתה עוזר למורים לשפר את תוכן השיעור שלהם בנושא יצירה של חדר אמרסיבי.
 
       הנחיות חשובות לגבי הקטגוריה:
@@ -168,7 +168,7 @@ export function generateUpdatePrompt(config: {
           * פיתוח תוכנה
           * בינה מלאכותית
           * אבטחת מידע
-
+        
       [הנחיות חובה]
 
       משימתך מתחלקת לשני סוגי שדות:  
