@@ -35,7 +35,7 @@ export const VALID_CATEGORIES = {
   'עברית': 'hebrew',
   'תנ״ך': 'bible',
   'היסטוריה': 'history',
-  'אזרחות': 'civics',
+  'אזרחות': 'citizenship',
   'ספרות': 'literature',
   'פיזיקה': 'physics',
   'כימיה': 'chemistry',
@@ -49,7 +49,18 @@ export const VALID_CATEGORIES = {
   'פילוסופיה': 'philosophy',
   'פסיכולוגיה': 'psychology',
   'סוציולוגיה': 'sociology',
-  'חינוך חברתי': 'social_education'
+  'חינוך חברתי': 'social_education',
+  'טכנולוגיה': 'technology',
+  'כלכלה': 'economics',
+  'סטטיסטיקה': 'statistics',
+  'פיננסים': 'finance',
+  'מנהיגות': 'leadership',
+  'תקשורת': 'communication',
+  'ארכיטקטורה': 'architecture',
+  'עיצוב': 'design',  
+  'פיתוח תוכנה': 'software_development',
+  'בינה מלאכותית': 'artificial_intelligence',
+  'אבטחת מידע': 'cyber_security'
 } as const;
 
 export function mapScreenTypeToEnglish(hebrewValue: string): string {
