@@ -654,6 +654,7 @@ export function generateFullLessonPrompt(args: GenerateFullLessonArgs): string {
 קטגוריה: ${args.category}${materialsSection}
 
 [הנחיות]
+אם סופקו חומרי למידה, עלייך לעשות שימוש מקסימלי בחומרי הלמידה כדי ליצור תכנון שיעור מעניין ומעשי.
 עליך ליצור תכנון שיעור מלא שיכלול:
 
 1. פרטי שיעור בסיסיים:
