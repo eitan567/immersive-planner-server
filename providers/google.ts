@@ -39,7 +39,13 @@ export class GoogleAIProvider implements AIProvider {
 IMPORTANT INSTRUCTIONS:
 1. You must ALWAYS respond in Hebrew
 2. You must return ONLY the JSON itself, without any markdown formatting or additional text
-3. The response must be a single JSON object that matches this exact structure:
+3. The response must be a single JSON object that matches this exact structure, using ONLY the specified values for position, spaceUsage, and screen types:
+
+position must be one of: "פתיחת נושא", "הקנייה", "תרגול", "סיכום נושא"
+spaceUsage must be one of: "מליאה", "עבודה בקבוצות", "עבודה אישית", "משולב"
+screen1/2/3 must be one of: "סרטון", "תמונה", "פדלט", "אתר", "ג'ניאלי", "מצגת"
+
+Full example:
 {
   "duration": "90 דקות",
   "gradeLevel": "י'-יב'",
