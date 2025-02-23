@@ -2,7 +2,7 @@ import { McpError, ErrorCode } from "@modelcontextprotocol/sdk/types.js";
 import { ToolHandler, cleanJsonResponse } from "./types.ts";
 import { AIProvider } from "../providers/types.ts";
 import { generateUpdatePrompt } from "../prompts/index.ts";
-import { mapPositionToEnglish, mapSpaceUsageToEnglish, mapScreenTypeToEnglish } from "../utils/mappings.ts";
+// import { mapPositionToEnglish, mapSpaceUsageToEnglish, mapScreenTypeToEnglish } from "../utils/mappings.ts";
 
 export interface UpdateLessonFieldArgs {
   message: string;

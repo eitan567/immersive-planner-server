@@ -35,62 +35,8 @@ export class GoogleAIProvider implements AIProvider {
         try {
           // הוספנו דוגמה מפורטת של ה-JSON הנדרש
           const formattedPrompt = `You are a helpful assistant with expertise in education and lesson planning.
-
-IMPORTANT INSTRUCTIONS:
-1. You must ALWAYS respond in Hebrew
-2. You must return ONLY the JSON itself, without any markdown formatting or additional text
-3. The response must be a single JSON object that matches this exact structure, using ONLY the specified values for position, spaceUsage, and screen types:
-
-position must be one of: "פתיחת נושא", "הקנייה", "תרגול", "סיכום נושא"
-spaceUsage must be one of: "מליאה", "עבודה בקבוצות", "עבודה אישית", "משולב"
-screen1/2/3 must be one of: "סרטון", "תמונה", "פדלט", "אתר", "ג'ניאלי", "מצגת"
-
-Full example:
-{
-  "duration": "90 דקות",
-  "gradeLevel": "י'-יב'",
-  "priorKnowledge": "הבנה בסיסית בקולנוע, היכרות עם ז'אנרים",
-  "position": "הקנייה",
-  "contentGoals": "הבנת התפתחות הז'אנר, זיהוי מאפיינים מרכזיים, ניתוח השפעות תרבותיות",
-  "skillGoals": "ניתוח סרטים, חשיבה ביקורתית, עבודת צוות",
-  "description": "שיעור על סרטי מדע בדיוני והשפעתם",
-  "sections": {
-    "opening": [{
-      "content": "דיון פתיחה וצפייה בקטע נבחר",
-      "spaceUsage": "מליאה",
-      "screen1": "סרטון",
-      "screen1Description": "קטע מסרט מדע בדיוני קלאסי",
-      "screen2": "תמונה",
-      "screen2Description": "פוסטר של הסרט",
-      "screen3": "פדלט",
-      "screen3Description": "לוח שיתופי לדיון"
-    }],
-    "main": [{
-      "content": "ניתוח מאפייני הז'אנר",
-      "spaceUsage": "עבודה בקבוצות",
-      "screen1": "מצגת",
-      "screen1Description": "מצגת על מאפייני הז'אנר",
-      "screen2": "אתר",
-      "screen2Description": "מאגר סרטים לניתוח",
-      "screen3": "ג'ניאלי",
-      "screen3Description": "משימת ניתוח קבוצתית"
-    }],
-    "summary": [{
-      "content": "סיכום והצגת תוצרים",
-      "spaceUsage": "מליאה",
-      "screen1": "מצגת",
-      "screen1Description": "הצגת עבודות הקבוצות",
-      "screen2": "פדלט",
-      "screen2Description": "סיכום תובנות",
-      "screen3": "",
-      "screen3Description": ""
-    }]
-  }
-}
-
-Here is the task:
-
-${prompt}`;
+                                    Here is the task:
+                                    ${prompt}`;
 
           logDebug('GoogleAI', `Attempting with model ${currentModel} (Retry ${retry + 1}/${this.modelRetries})`);
           logDebug('GoogleAI', 'Complete formatted prompt:', formattedPrompt);
@@ -104,7 +50,7 @@ ${prompt}`;
             }],
             generationConfig: {
               temperature: 0.7,
-              maxOutputTokens: 800,
+              maxOutputTokens: 5000,
             },
             safetySettings: [
               {
