@@ -9,20 +9,25 @@ export function cleanJsonResponse(response: string): string {
   try {
     console.log('Original response:', response);
     
-    const arrayMatch = response.match(/\[[\s\S]*\]/);
+    // הסרת סימני markdown
+    let cleanedResponse = response.replace(/```json\n?/g, '').replace(/```\n?/g, '');
+    console.log('Response after markdown cleanup:', cleanedResponse);
+    
+    const arrayMatch = cleanedResponse.match(/\[[\s\S]*\]/);
     if (arrayMatch) {
       const cleaned = arrayMatch[0].trim();
       console.log('Found array JSON:', cleaned);
-      JSON.parse(cleaned); // Validate it's valid JSON
+      JSON.parse(cleaned); // בדיקת תקינות ה-JSON
       return cleaned;
     }
     
-    const objectMatch = response.match(/\{[\s\S]*\}/);
+    const objectMatch = cleanedResponse.match(/\{[\s\S]*\}/);
     if (objectMatch) {
-      const cleaned = `[${objectMatch[0].trim()}]`;
-      console.log('Found object JSON, wrapping in array:', cleaned);
-      JSON.parse(cleaned); // Validate it's valid JSON
-      return cleaned;
+      const cleaned = objectMatch[0].trim();
+      console.log('Found object JSON:', cleaned);
+      // בדיקת תקינות ה-JSON
+      JSON.parse(cleaned);
+      return cleaned; // מחזירים את האובייקט כמו שהוא, בלי לעטוף במערך
     }
     
     console.error('No valid JSON structure found');

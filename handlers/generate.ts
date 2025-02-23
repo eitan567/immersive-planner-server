@@ -74,7 +74,7 @@ export class GenerateHandler implements ToolHandler<GenerateFullLessonArgs> {
      * סוג מסך (screen1, screen2, screen3) - חובה לבחור מ: סרטון, תמונה, פדלט, אתר, ג'ניאלי, מצגת
      * תיאור מסך (screen1Description, screen2Description, screen3Description)
 
-חובה להחזיר JSON בפורמט הבא:
+חשוב מאוד: עליך להחזיר תשובה שמכילה אך ורק את ה-JSON הבא, ללא שום תוספות או הערות:
 {
   "duration": "משך הזמן",
   "gradeLevel": "שכבת גיל",
@@ -122,25 +122,40 @@ export class GenerateHandler implements ToolHandler<GenerateFullLessonArgs> {
 2. הקפד על הפורמט המדויק ללא שינויים
 3. אל תוסיף שדות נוספים
 4. תן תשובה בעברית בלבד
-5. החזר JSON תקין שניתן לפרסור`;
+5. החזר JSON תקין שניתן לפרסור
+6. אל תוסיף הערות, הסברים או טקסט נוסף מחוץ ל-JSON
+7. החזר רק את ה-JSON עצמו, ללא סימני markdown או תוספות אחרות`;
   }
 
   async execute(args: GenerateFullLessonArgs) {
     try {
       const prompt = this.createPrompt(args);
+      console.log('[Generate Handler] Sending prompt to AI:', prompt);
+      
       const response = await this.provider.generateCompletion(prompt);
+      console.log('[Generate Handler] Raw AI response:', response);
       
       try {
         // נסה לפרסר את התשובה המלאה
         const parsed = JSON.parse(response);
+        console.log('[Generate Handler] Successfully parsed response:', parsed);
         return {
           content: [{ type: "text", text: JSON.stringify(parsed) }]
         };
       } catch (parseError) {
         // אם הפרסור נכשל, נסה לנקות את התשובה
         try {
-          const cleanedResponse = cleanJsonResponse(response);
+          console.log('[Generate Handler] Trying to clean and parse response');
+          
+          // הסרת סימני markdown
+          const cleanedResponse = response.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+          console.log('[Generate Handler] Cleaned response:', cleanedResponse);
+          
+          // בדיקת תקינות ה-JSON
           const parsed = JSON.parse(cleanedResponse);
+          console.log('[Generate Handler] Successfully parsed JSON:', parsed);
+          
+          // החזרת ה-JSON המנוקה
           return {
             content: [{ type: "text", text: JSON.stringify(parsed) }]
           };

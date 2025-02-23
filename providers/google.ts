@@ -33,13 +33,62 @@ export class GoogleAIProvider implements AIProvider {
         logDebug('GoogleAI', `מנסה עם מודל ${currentModel} (ניסיון ${retry + 1}/${this.modelRetries})`);
         
         try {
+          // הוספנו דוגמה מפורטת של ה-JSON הנדרש
           const formattedPrompt = `You are a helpful assistant with expertise in education and lesson planning.
-You must ALWAYS respond in Hebrew.
+
+IMPORTANT INSTRUCTIONS:
+1. You must ALWAYS respond in Hebrew
+2. You must return ONLY the JSON itself, without any markdown formatting or additional text
+3. The response must be a single JSON object that matches this exact structure:
+{
+  "duration": "90 דקות",
+  "gradeLevel": "י'-יב'",
+  "priorKnowledge": "הבנה בסיסית בקולנוע, היכרות עם ז'אנרים",
+  "position": "הקנייה",
+  "contentGoals": "הבנת התפתחות הז'אנר, זיהוי מאפיינים מרכזיים, ניתוח השפעות תרבותיות",
+  "skillGoals": "ניתוח סרטים, חשיבה ביקורתית, עבודת צוות",
+  "description": "שיעור על סרטי מדע בדיוני והשפעתם",
+  "sections": {
+    "opening": [{
+      "content": "דיון פתיחה וצפייה בקטע נבחר",
+      "spaceUsage": "מליאה",
+      "screen1": "סרטון",
+      "screen1Description": "קטע מסרט מדע בדיוני קלאסי",
+      "screen2": "תמונה",
+      "screen2Description": "פוסטר של הסרט",
+      "screen3": "פדלט",
+      "screen3Description": "לוח שיתופי לדיון"
+    }],
+    "main": [{
+      "content": "ניתוח מאפייני הז'אנר",
+      "spaceUsage": "עבודה בקבוצות",
+      "screen1": "מצגת",
+      "screen1Description": "מצגת על מאפייני הז'אנר",
+      "screen2": "אתר",
+      "screen2Description": "מאגר סרטים לניתוח",
+      "screen3": "ג'ניאלי",
+      "screen3Description": "משימת ניתוח קבוצתית"
+    }],
+    "summary": [{
+      "content": "סיכום והצגת תוצרים",
+      "spaceUsage": "מליאה",
+      "screen1": "מצגת",
+      "screen1Description": "הצגת עבודות הקבוצות",
+      "screen2": "פדלט",
+      "screen2Description": "סיכום תובנות",
+      "screen3": "",
+      "screen3Description": ""
+    }]
+  }
+}
+
 Here is the task:
 
 ${prompt}`;
 
           logDebug('GoogleAI', `Attempting with model ${currentModel} (Retry ${retry + 1}/${this.modelRetries})`);
+          logDebug('GoogleAI', 'Complete formatted prompt:', formattedPrompt);
+          
           const requestBody = {
             contents: [{
               role: 'user',
@@ -91,6 +140,7 @@ ${prompt}`;
 
           const data = await response.json();
           logResponse('GoogleAI', data);
+          console.log('[GoogleAI] Full API Response:', data);
 
           if (!data.candidates?.[0]?.content?.parts?.[0]?.text) {
             logError('GoogleAI invalid response format:', data);
@@ -99,7 +149,42 @@ ${prompt}`;
             continue;
           }
 
-          return data.candidates[0].content.parts[0].text;
+          const responseText = data.candidates[0].content.parts[0].text;
+          console.log('[GoogleAI] Raw response text:', responseText);
+
+          // ניקוי התשובה
+          const cleanedResponse = responseText
+            .replace(/```json\n?/g, '')
+            .replace(/```\n?/g, '')
+            .trim();
+          
+          console.log('[GoogleAI] Cleaned response:', cleanedResponse);
+
+          try {
+            // בדיקה שה-JSON תקין
+            const parsed = JSON.parse(cleanedResponse);
+            console.log('[GoogleAI] Successfully parsed JSON:', parsed);
+            return JSON.stringify(parsed);
+          } catch (e) {
+            console.log('[GoogleAI] Failed to parse cleaned response:', e);
+            
+            // נסיון אחרון - חיפוש JSON בתוך התשובה
+            const jsonMatch = cleanedResponse.match(/\{[\s\S]*\}/);
+            if (jsonMatch) {
+              console.log('[GoogleAI] Found JSON in response:', jsonMatch[0]);
+              try {
+                const parsed = JSON.parse(jsonMatch[0]);
+                console.log('[GoogleAI] Successfully parsed extracted JSON');
+                return JSON.stringify(parsed);
+              } catch (e) {
+                console.log('[GoogleAI] Failed to parse extracted JSON:', e);
+                throw new Error('Invalid JSON response from AI');
+              }
+            } else {
+              console.log('[GoogleAI] No JSON found in response');
+              throw new Error('No JSON found in AI response');
+            }
+          }
         } catch (error) {
           logError('GoogleAI completion error:', error);
           lastError = error instanceof Error ? error : new Error(String(error));
