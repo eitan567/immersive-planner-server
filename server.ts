@@ -13,6 +13,7 @@ import {
   ChatHandler,
   SuggestionHandler,
   UpdateHandler,
+  GenerateHandler,
   ToolHandler
 } from "./handlers/index.ts";
 
@@ -42,7 +43,8 @@ class AIServer {
     this.handlers = new Map<string, ToolHandler<unknown>>([
       ["chat_with_context", new ChatHandler(provider)],
       ["generate_suggestion", new SuggestionHandler(provider)],
-      ["update_lesson_field", new UpdateHandler(provider)]
+      ["update_lesson_field", new UpdateHandler(provider)],
+      ["generate_full_lesson", new GenerateHandler(provider)]
     ]);
 
     this.setupRequestHandlers();
@@ -119,6 +121,33 @@ class AIServer {
             }
           },
           required: ["message", "fieldLabels", "currentValues"]
+        }
+      },
+      {
+        name: "generate_full_lesson",
+        description: "Generate a complete lesson plan from initial parameters",
+        inputSchema: {
+          type: "object",
+          properties: {
+            topic: { 
+              type: "string",
+              description: "The main topic of the lesson"
+            },
+            materials: { 
+              type: "string",
+              description: "Optional learning materials provided by the user"
+            },
+            category: { 
+              type: "string",
+              description: "The lesson category (e.g., Math, Science, etc.)"
+            },
+            fieldLabels: {
+              type: "object",
+              additionalProperties: { type: "string" },
+              description: "Hebrew labels for each field"
+            }
+          },
+          required: ["topic", "category", "fieldLabels"]
         }
       }
     ];
