@@ -643,16 +643,36 @@ ${config.message}
 
 
 export function generateFullLessonPrompt(args: GenerateFullLessonArgs): string {
-  const materialsSection = args.materials 
-    ? `\nחומרי למידה שסופקו:\n${args.materials}`
-    : '';
+  const { topic, materials, category } = args;
+  // const materialsSection = args.materials 
+  //   ? `\nחומרי למידה שסופקו:\n${args.materials}`
+  //   : '';
 
-  return `אתה עוזר למורים לתכנן שיעורים בחדר אימרסיבי. עליך ליצור תכנון שיעור מלא בהתבסס על המידע הבא:
+    let basePrompt = `אתה עוזר למורים לתכנן שיעורים בחדר אימרסיבי. עליך ליצור תכנון שיעור מלא בהתבסס על המידע הבא:
 
-[מידע על השיעור]
-נושא: ${args.topic}
-קטגוריה: ${args.category}${materialsSection}
-
+    [מידע על השיעור]`;
+    
+      if (topic) {
+        basePrompt += `\nנושא היחידה: ${topic}`;
+      }
+      if (category) {
+        basePrompt += `\nקטגוריה: ${category}`;
+      }
+      if (materials) {
+        basePrompt += `\nחומרי למידה שסופקו ${materials}`;
+      }
+    
+      basePrompt += `\n\n[דרישות מיוחדות]`;
+      
+      if (!topic && !category && materials) {
+        basePrompt += `\n- יש להציע נושא יחידה וקטגוריה מתאימים בהתבסס על חומרי העזר שסופקו`;
+      } else if (!topic && category) {
+        basePrompt += `\n- יש להציע נושא יחידה שמתאים לקטגוריה "${category}" ובהתבסס על חומרי העזר במידה וסופקו`;
+      } else if (topic && !category) {
+        basePrompt += `\n- יש להציע קטגוריה מתאימה לנושא היחידה "${topic}" ובהתבסס על חומרי העזר במידה וסופקו`;
+      }
+    
+  return basePrompt +=`
 [הנחיות]
 אם סופקו חומרי למידה, עלייך לעשות שימוש מקסימלי בחומרי הלמידה כדי ליצור תכנון שיעור מעניין ומעשי.
 עליך ליצור תכנון שיעור מלא שיכלול:
