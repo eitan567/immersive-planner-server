@@ -102,41 +102,42 @@ export class GoogleAIProvider implements AIProvider {
           }
 
           const responseText = data.candidates[0].content.parts[0].text;
-          console.log('[GoogleAI] Raw response text:', responseText);
+          return responseText;
+          // console.log('[GoogleAI] Raw response text:', responseText);
 
-          // ניקוי התשובה
-          const cleanedResponse = responseText
-            .replace(/```json\n?/g, '')
-            .replace(/```\n?/g, '')
-            .trim();
+          // // ניקוי התשובה
+          // const cleanedResponse = responseText
+          //   .replace(/```json\n?/g, '')
+          //   .replace(/```\n?/g, '')
+          //   .trim();
           
-          console.log('[GoogleAI] Cleaned response:', cleanedResponse);
+          // console.log('[GoogleAI] Cleaned response:', cleanedResponse);
 
-          try {
-            // בדיקה שה-JSON תקין
-            const parsed = JSON.parse(cleanedResponse);
-            console.log('[GoogleAI] Successfully parsed JSON:', parsed);
-            return JSON.stringify(parsed);
-          } catch (e) {
-            console.log('[GoogleAI] Failed to parse cleaned response:', e);
+          // try {
+          //   // בדיקה שה-JSON תקין
+          //   const parsed = JSON.parse(cleanedResponse);
+          //   console.log('[GoogleAI] Successfully parsed JSON:', parsed);
+          //   return JSON.stringify(parsed);
+          // } catch (e) {
+          //   console.log('[GoogleAI] Failed to parse cleaned response:', e);
             
-            // נסיון אחרון - חיפוש JSON בתוך התשובה
-            const jsonMatch = cleanedResponse.match(/\{[\s\S]*\}/);
-            if (jsonMatch) {
-              console.log('[GoogleAI] Found JSON in response:', jsonMatch[0]);
-              try {
-                const parsed = JSON.parse(jsonMatch[0]);
-                console.log('[GoogleAI] Successfully parsed extracted JSON');
-                return JSON.stringify(parsed);
-              } catch (e) {
-                console.log('[GoogleAI] Failed to parse extracted JSON:', e);
-                throw new Error('Invalid JSON response from AI');
-              }
-            } else {
-              console.log('[GoogleAI] No JSON found in response');
-              throw new Error('No JSON found in AI response');
-            }
-          }
+          //   // נסיון אחרון - חיפוש JSON בתוך התשובה
+          //   const jsonMatch = cleanedResponse.match(/\{[\s\S]*\}/);
+          //   if (jsonMatch) {
+          //     console.log('[GoogleAI] Found JSON in response:', jsonMatch[0]);
+          //     try {
+          //       const parsed = JSON.parse(jsonMatch[0]);
+          //       console.log('[GoogleAI] Successfully parsed extracted JSON');
+          //       return JSON.stringify(parsed);
+          //     } catch (e) {
+          //       console.log('[GoogleAI] Failed to parse extracted JSON:', e);
+          //       throw new Error('Invalid JSON response from AI');
+          //     }
+          //   } else {
+          //     console.log('[GoogleAI] No JSON found in response');
+          //     throw new Error('No JSON found in AI response');
+          //   }
+          // }
         } catch (error) {
           logError('GoogleAI completion error:', error);
           lastError = error instanceof Error ? error : new Error(String(error));
