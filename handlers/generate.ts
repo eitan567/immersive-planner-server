@@ -4,9 +4,9 @@ import { AIProvider } from "../providers/types.ts";
 import { generateFullLessonPrompt } from "../prompts/index.ts";
 
 export interface GenerateFullLessonArgs {
-  topic: string;
+  topic?: string;
   materials?: string;
-  category: string;
+  category?: string;
   fieldLabels: Record<string, string>;
 }
 
@@ -21,17 +21,28 @@ export class GenerateHandler implements ToolHandler<GenerateFullLessonArgs> {
 
     const a = args as Partial<GenerateFullLessonArgs>;
     
-    if (typeof a.topic !== 'string' || !a.topic.trim()) {
+    // וידוא שלפחות אחד מהשדות קיים ותקין
+    const hasValidTopic = a.topic && typeof a.topic === 'string' && a.topic.trim().length > 0;
+    const hasValidCategory = a.category && typeof a.category === 'string' && a.category.trim().length > 0;
+    const hasValidMaterials = a.materials && typeof a.materials === 'string' && a.materials.trim().length > 0;
+
+    if (!hasValidTopic && !hasValidCategory && !hasValidMaterials) {
+      console.error('Validation', 'at least one field must be provided', { topic: a.topic, category: a.category, materials: a.materials });
+      return false;
+    }
+
+    // בדיקת תקינות של השדות שהוזנו
+    if (a.topic !== undefined && (typeof a.topic !== 'string' || !a.topic.trim())) {
       console.error('Validation', 'invalid topic', a.topic);
       return false;
     }
 
-    if (typeof a.category !== 'string' || !a.category.trim()) {
+    if (a.category !== undefined && (typeof a.category !== 'string' || !a.category.trim())) {
       console.error('Validation', 'invalid category', a.category);
       return false;
     }
 
-    if (a.materials !== undefined && typeof a.materials !== 'string') {
+    if (a.materials !== undefined && (typeof a.materials !== 'string' || !a.materials.trim())) {
       console.error('Validation', 'invalid materials', a.materials);
       return false;
     }

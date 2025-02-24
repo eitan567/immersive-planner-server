@@ -6,9 +6,9 @@ export interface PromptConfig {
 }
 
 export interface GenerateFullLessonArgs {
-  topic: string;
+  topic?: string;
   materials?: string;
-  category: string;
+  category?: string;
   fieldLabels: Record<string, string>;
 }
 
