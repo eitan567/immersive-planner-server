@@ -7,7 +7,7 @@ export interface PromptConfig {
 
 export interface GenerateFullLessonArgs {
   topic?: string;
-  materials?: string;
+  materials?: { title: string; content: string } | string;
   category?: string;
   fieldLabels: Record<string, string>;
 }
@@ -661,7 +661,12 @@ export function generateFullLessonPrompt(args: GenerateFullLessonArgs): string {
         existingInfo.push(`קטגוריה: ${category}`);
       }
       if (materials) {
-        existingInfo.push(`חומרי למידה שסופקו: ${materials}`);
+        if (typeof materials === 'object' && materials.title && materials.content) {
+          existingInfo.push(`כותרת חומרי עזר: ${materials.title}`);
+          existingInfo.push(`חומרי עזר: ${materials.content}`);
+        } else {
+          existingInfo.push(`חומרי עזר: ${materials}`);
+        }
       }
       
       if (existingInfo.length > 0) {
