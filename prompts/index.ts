@@ -681,9 +681,9 @@ export function generateFullLessonPrompt(args: GenerateFullLessonArgs): string {
       if (!topic && !category && materials) {
         instructions.push(`- יש להציע נושא יחידה וקטגוריה מתאימים בהתבסס על חומרי העזר שסופקו`);
       } else if (!topic && category) {
-        instructions.push(`- יש להציע נושא יחידה שמתאים לקטגוריה "${category}" ובהתבסס על חומרי העזר במידה וסופקו`);
+        instructions.push(`- יש להציע נושא יחידה שמתאים לקטגוריה "${category}" ובהתבסס על חומרי העזר במידה שסופקו`);
       } else if (topic && !category) {
-        instructions.push(`- יש להציע קטגוריה מתאימה לנושא היחידה "${topic}" ובהתבסס על חומרי העזר במידה וסופקו`);
+        instructions.push(`- יש להציע קטגוריה מתאימה לנושא היחידה "${topic}" ובהתבסס על חומרי העזר במידה שסופקו`);
       }
 
       instructions.push(

@@ -32,20 +32,20 @@ export class GenerateHandler implements ToolHandler<GenerateFullLessonArgs> {
     }
 
     // בדיקת תקינות של השדות שהוזנו
-    if (a.topic !== undefined && (typeof a.topic !== 'string' || !a.topic.trim())) {
-      console.error('Validation', 'invalid topic', a.topic);
-      return false;
-    }
+    // if (a.topic !== undefined && (typeof a.topic !== 'string' || !a.topic.trim())) {
+    //   console.error('Validation', 'invalid topic', a.topic);
+    //   return false;
+    // }
 
-    if (a.category !== undefined && (typeof a.category !== 'string' || !a.category.trim())) {
-      console.error('Validation', 'invalid category', a.category);
-      return false;
-    }
+    // if (a.category !== undefined && (typeof a.category !== 'string' || !a.category.trim())) {
+    //   console.error('Validation', 'invalid category', a.category);
+    //   return false;
+    // }
 
-    if (a.materials !== undefined && (typeof a.materials !== 'string' || !a.materials.trim())) {
-      console.error('Validation', 'invalid materials', a.materials);
-      return false;
-    }
+    // if (a.materials !== undefined && (typeof a.materials !== 'string' || !a.materials.trim())) {
+    //   console.error('Validation', 'invalid materials', a.materials);
+    //   return false;
+    // }
 
     if (!a.fieldLabels || typeof a.fieldLabels !== 'object') {
       console.error('Validation', 'invalid fieldLabels', a.fieldLabels);
