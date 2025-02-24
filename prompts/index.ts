@@ -651,26 +651,43 @@ export function generateFullLessonPrompt(args: GenerateFullLessonArgs): string {
     let basePrompt = `אתה עוזר למורים לתכנן שיעורים בחדר אימרסיבי. עליך ליצור תכנון שיעור מלא בהתבסס על המידע הבא:
 
     [מידע על השיעור]`;
-    
+
+      // מידע על השדות הקיימים
+      const existingInfo = [];
       if (topic) {
-        basePrompt += `\nנושא היחידה: ${topic}`;
+        existingInfo.push(`נושא היחידה: ${topic}`);
       }
       if (category) {
-        basePrompt += `\nקטגוריה: ${category}`;
+        existingInfo.push(`קטגוריה: ${category}`);
       }
       if (materials) {
-        basePrompt += `\nחומרי למידה שסופקו ${materials}`;
+        existingInfo.push(`חומרי למידה שסופקו: ${materials}`);
       }
-    
+      
+      if (existingInfo.length > 0) {
+        basePrompt += `\nשדות קיימים:\n${existingInfo.join('\n')}`;
+      }
+      
       basePrompt += `\n\n[דרישות מיוחדות]`;
       
+      // הנחיות ספציפיות לשדות החסרים
+      const instructions = [];
+      
       if (!topic && !category && materials) {
-        basePrompt += `\n- יש להציע נושא יחידה וקטגוריה מתאימים בהתבסס על חומרי העזר שסופקו`;
+        instructions.push(`- יש להציע נושא יחידה וקטגוריה מתאימים בהתבסס על חומרי העזר שסופקו`);
       } else if (!topic && category) {
-        basePrompt += `\n- יש להציע נושא יחידה שמתאים לקטגוריה "${category}" ובהתבסס על חומרי העזר במידה וסופקו`;
+        instructions.push(`- יש להציע נושא יחידה שמתאים לקטגוריה "${category}" ובהתבסס על חומרי העזר במידה וסופקו`);
       } else if (topic && !category) {
-        basePrompt += `\n- יש להציע קטגוריה מתאימה לנושא היחידה "${topic}" ובהתבסס על חומרי העזר במידה וסופקו`;
+        instructions.push(`- יש להציע קטגוריה מתאימה לנושא היחידה "${topic}" ובהתבסס על חומרי העזר במידה וסופקו`);
       }
+
+      instructions.push(
+        `- אין להחזיר בתשובה שדות שכבר קיימים:`,
+        topic ? `  * אין להחזיר את שדה 'topic' כי כבר קיים` : '',
+        category ? `  * אין להחזיר את שדה 'category' כי כבר קיים` : ''
+      );
+      
+      basePrompt += instructions.filter(i => i).join('\n');
     
   return basePrompt +=`
 [הנחיות]
