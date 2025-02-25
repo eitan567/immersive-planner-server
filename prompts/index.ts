@@ -13,6 +13,7 @@ export interface GenerateFullLessonArgs {
 }
 
 export function generateSuggestionPrompt(config: {
+  materials?: { title: string; content: string } | string;
   context: string;
   currentValue: string;
   message?: string;
@@ -108,6 +109,7 @@ export function generateUpdatePrompt(config: {
   message: string;
   currentValues: Record<string, string>;
   fieldLabels: Record<string, string>;
+  materials?: { title: string; content: string } | string;
 }): string {
   const fieldsContext = Object.entries(config.fieldLabels)
     .map(([key, label]) => {
@@ -585,6 +587,7 @@ export function generateUpdatePrompt(config: {
 }
 
 export function generateChatPrompt(config: {
+  materials?: { title: string; content: string } | string;
   message: string;
   currentValues: Record<string, string>;
   fieldLabels?: Record<string, string>;

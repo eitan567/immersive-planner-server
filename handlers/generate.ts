@@ -5,7 +5,7 @@ import { generateFullLessonPrompt } from "../prompts/index.ts";
 
 export interface GenerateFullLessonArgs {
   topic?: string;
-  materials?: string;
+  materials?: { title: string; content: string } | string;
   category?: string;
   fieldLabels: Record<string, string>;
 }
@@ -24,7 +24,15 @@ export class GenerateHandler implements ToolHandler<GenerateFullLessonArgs> {
     // וידוא שלפחות אחד מהשדות קיים ותקין
     const hasValidTopic = a.topic && typeof a.topic === 'string' && a.topic.trim().length > 0;
     const hasValidCategory = a.category && typeof a.category === 'string' && a.category.trim().length > 0;
-    const hasValidMaterials = a.materials && typeof a.materials === 'string' && a.materials.trim().length > 0;
+    const hasValidMaterials = a.materials && (
+      (typeof a.materials === 'string' && a.materials.trim().length > 0) ||
+      (typeof a.materials === 'object' && 
+       'title' in a.materials && 
+       'content' in a.materials && 
+       typeof a.materials.title === 'string' && 
+       typeof a.materials.content === 'string' &&
+       (a.materials.title.trim().length > 0 || a.materials.content.trim().length > 0))
+    );
 
     if (!hasValidTopic && !hasValidCategory && !hasValidMaterials) {
       console.error('Validation', 'at least one field must be provided', { topic: a.topic, category: a.category, materials: a.materials });
@@ -57,7 +65,14 @@ export class GenerateHandler implements ToolHandler<GenerateFullLessonArgs> {
 
   async execute(args: GenerateFullLessonArgs) {
     try {
-      const prompt = generateFullLessonPrompt(args);
+      // אם יש materials והוא string, נוסיף אותו כפי שהוא
+      // אם יש materials והוא אובייקט, נשלח את האובייקט כמו שהוא
+      // אם אין materials, לא נשלח כלום
+      
+      const prompt = generateFullLessonPrompt({
+        ...args,
+        materials: args.materials
+      });
       console.log('[Generate Handler] Sending prompt to AI:', prompt);
       
       const response = await this.provider.generateCompletion(prompt);

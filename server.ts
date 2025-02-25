@@ -58,6 +58,10 @@ class AIServer {
         inputSchema: {
           type: "object",
           properties: {
+            materials: { 
+              type: "string",
+              description: "Optional learning materials provided by the user"
+            },
             message: { type: "string" },
             currentValues: { 
               type: "object",
@@ -85,6 +89,10 @@ class AIServer {
         inputSchema: {
           type: "object",
           properties: {
+            materials: { 
+              type: "string",
+              description: "Optional learning materials provided by the user"
+            },
             context: { type: "string", description: "Current content or context" },
             type: {
               type: "string",
@@ -105,6 +113,10 @@ class AIServer {
         inputSchema: {
           type: "object",
           properties: {
+            materials: { 
+              type: "string",
+              description: "Optional learning materials provided by the user"
+            },
             message: { type: "string" },
             fieldLabels: {
               type: "object",
