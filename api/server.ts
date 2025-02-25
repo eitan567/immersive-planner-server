@@ -86,7 +86,7 @@ class AIServer {
             context: { type: "string", description: "Current content or context" },
             type: {
               type: "string",
-              enum: ["topic", "content", "goals", "duration", "activity"]
+              enum: ["topic", "content", "goals", "duration", "activity", "description" ]
             },
             currentValue: { type: "string" },
             message: {

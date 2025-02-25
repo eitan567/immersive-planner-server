@@ -6,7 +6,7 @@ import { mapPositionToEnglish, mapCategoryToEnglish } from "../utils/mappings.ts
 
 export interface GenerateSuggestionArgs {
   context: string;
-  type: 'topic' | 'content' | 'goals' | 'duration' | 'activity' | 'position' | 'contentGoals' | 'skillGoals' | 'priorKnowledge' | 'gradeLevel' | 'category';
+  type: 'topic' | 'content' | 'goals' | 'duration' | 'activity' | 'position' | 'contentGoals' | 'skillGoals' | 'priorKnowledge' | 'gradeLevel' | 'category' | 'description';
   currentValue: string;
   message?: string;
 }
@@ -21,7 +21,7 @@ export class SuggestionHandler implements ToolHandler<GenerateSuggestionArgs> {
       typeof a.context === "string" &&
       typeof a.currentValue === "string" &&
       typeof a.type === "string" &&
-      ["topic", "content", "goals", "duration", "activity", "position", "contentGoals", "skillGoals", "priorKnowledge", "gradeLevel", "category"].includes(a.type) &&
+      ["topic", "content", "goals", "duration", "activity", "position", "contentGoals", "skillGoals", "priorKnowledge", "gradeLevel", "category", "description"].includes(a.type) &&
       (a.message === undefined || typeof a.message === "string")
     );
   }

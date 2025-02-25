@@ -17,8 +17,17 @@ export function generateSuggestionPrompt(config: {
   context: string;
   currentValue: string;
   message?: string;
-  type: 'topic' | 'content' | 'goals' | 'duration' | 'activity' | 'position' | 'contentGoals' | 'skillGoals' | 'priorKnowledge' | 'gradeLevel' | 'category';
+  type: 'topic' | 'content' | 'goals' | 'duration' | 'activity' | 'position' | 'contentGoals' | 'skillGoals' | 'priorKnowledge' | 'gradeLevel' | 'category' | 'description';
 }): string {
+
+  //add log to all the fields
+  console.log('generateSuggestionPrompt config:', config);
+  console.log('generateSuggestionPrompt config context:', config.context);
+  console.log('generateSuggestionPrompt config currentValue:', config.currentValue);
+  console.log('generateSuggestionPrompt config message:', config.message);
+  console.log('generateSuggestionPrompt config type:', config.type);
+  console.log('generateSuggestionPrompt config materials:', config.materials);
+
   let prompt = `בהתבסס על ההקשר הבא: "${config.context}"
 והתוכן הנוכחי: "${config.currentValue || "ריק"}"`;
 
@@ -111,6 +120,14 @@ export function generateUpdatePrompt(config: {
   fieldLabels: Record<string, string>;
   materials?: { title: string; content: string } | string;
 }): string {
+
+  //add log to all the fields
+  console.log('generateUpdatePrompt config:', config);
+  console.log('generateUpdatePrompt config message:', config.message);
+  console.log('generateUpdatePrompt config currentValues:', config.currentValues);
+  console.log('generateUpdatePrompt config fieldLabels:', config.fieldLabels);
+  console.log('generateUpdatePrompt config materials:', config.materials);
+
   const fieldsContext = Object.entries(config.fieldLabels)
     .map(([key, label]) => {
       const value = config.currentValues?.[key];
@@ -593,6 +610,15 @@ export function generateChatPrompt(config: {
   fieldLabels?: Record<string, string>;
   history: Array<{ text: string; sender: 'user' | 'ai'; timestamp: Date }>;
 }): string {
+
+  //add log to all the fields
+  console.log('generateChatPrompt config:', config);
+  console.log('generateChatPrompt config message:', config.message);
+  console.log('generateChatPrompt config currentValues:', config.currentValues);
+  console.log('generateChatPrompt config fieldLabels:', config.fieldLabels);
+  console.log('generateChatPrompt config materials:', config.materials);
+  console.log('generateChatPrompt config history:', config.history);
+  
   const contextSection = Object.entries(config.currentValues)
     .map(([key, value]) => {
       const label = config.fieldLabels?.[key] || key;
@@ -644,9 +670,15 @@ ${config.message}
 ענה בצורה מקצועית, תוך התייחסות להקשר השיעור. אל תציין שאתה AI, פשוט ענה כמומחה מקצועי.`;
 }
 
-
 export function generateFullLessonPrompt(args: GenerateFullLessonArgs): string {
   const { topic, materials, category } = args;
+
+    //add log to all the fields
+    console.log('generateFullLessonPrompt args:', args);
+    console.log('generateFullLessonPrompt args topic:', topic);
+    console.log('generateFullLessonPrompt args materials:', materials);
+    console.log('generateFullLessonPrompt args category:', category);
+
   // const materialsSection = args.materials 
   //   ? `\nחומרי למידה שסופקו:\n${args.materials}`
   //   : '';
