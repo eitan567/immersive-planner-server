@@ -9,6 +9,7 @@ export interface GenerateSuggestionArgs {
   type: 'topic' | 'content' | 'goals' | 'duration' | 'activity' | 'position' | 'contentGoals' | 'skillGoals' | 'priorKnowledge' | 'gradeLevel' | 'category' | 'description';
   currentValue: string;
   message?: string;
+  materials?: { title: string; content: string } | string;
 }
 
 export class SuggestionHandler implements ToolHandler<GenerateSuggestionArgs> {
@@ -23,6 +24,8 @@ export class SuggestionHandler implements ToolHandler<GenerateSuggestionArgs> {
       typeof a.type === "string" &&
       ["topic", "content", "goals", "duration", "activity", "position", "contentGoals", "skillGoals", "priorKnowledge", "gradeLevel", "category", "description"].includes(a.type) &&
       (a.message === undefined || typeof a.message === "string")
+ &&
+      (a.materials === undefined || typeof a.materials === "string" || (typeof a.materials === "object" && typeof a.materials.title === "string" && typeof a.materials.content === "string"))
     );
   }
 

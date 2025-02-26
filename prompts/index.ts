@@ -29,7 +29,14 @@ export function generateSuggestionPrompt(config: {
   console.log('generateSuggestionPrompt config materials:', config.materials);
 
   let prompt = `בהתבסס על ההקשר הבא: "${config.context}"
-והתוכן הנוכחי: "${config.currentValue || "ריק"}"`;
+`;
+
+  if (config.materials) {
+    const materialsText = typeof config.materials === 'string' ? config.materials : `${config.materials.title}\n${config.materials.content}`;
+    prompt += `\nוחומרי העזר הבאים:\n${materialsText}`;
+  }
+
+  prompt += `\nוהתוכן הנוכחי: "${config.currentValue || "ריק"}"`;
 
   if (config.message) {
     prompt += `\nבהתייחס להודעה הבאה: "${config.message}"`;
@@ -127,6 +134,16 @@ export function generateUpdatePrompt(config: {
   console.log('generateUpdatePrompt config currentValues:', config.currentValues);
   console.log('generateUpdatePrompt config fieldLabels:', config.fieldLabels);
   console.log('generateUpdatePrompt config materials:', config.materials);
+
+  let materialsContext = '';
+  if (config.materials) {
+    materialsContext = '\n[חומרי עזר]\n';
+    if (typeof config.materials === 'object' && config.materials.title && config.materials.content) {
+      materialsContext += `כותרת: ${config.materials.title}\nתוכן: ${config.materials.content}`;
+    } else {
+      materialsContext += config.materials;
+    }
+  }
 
   const fieldsContext = Object.entries(config.fieldLabels)
     .map(([key, label]) => {
@@ -362,6 +379,8 @@ export function generateUpdatePrompt(config: {
 
       [מצב נוכחי של השדות]
       ${fieldsContext}
+
+      ${materialsContext}
 
       [בקשת המשתמש]
       ${config.message}
@@ -619,6 +638,16 @@ export function generateChatPrompt(config: {
   console.log('generateChatPrompt config materials:', config.materials);
   console.log('generateChatPrompt config history:', config.history);
   
+  let materialsSection = '';
+  if (config.materials) {
+    materialsSection = '\n[חומרי עזר]\n';
+    if (typeof config.materials === 'object' && config.materials.title && config.materials.content) {
+      materialsSection += `כותרת: ${config.materials.title}\nתוכן: ${config.materials.content}`;
+    } else {
+      materialsSection += config.materials;
+    }
+  }
+
   const contextSection = Object.entries(config.currentValues)
     .map(([key, value]) => {
       const label = config.fieldLabels?.[key] || key;
@@ -634,6 +663,7 @@ export function generateChatPrompt(config: {
 
 [מצב נוכחי של השיעור]
 ${contextSection}
+${materialsSection}
 
 [היסטוריית השיחה]
 ${historySection}
@@ -687,6 +717,16 @@ export function generateFullLessonPrompt(args: GenerateFullLessonArgs): string {
 
     [מידע על השיעור]`;
 
+      // Add materials section 
+      if (args.materials) {
+        basePrompt += `\n\n[חומרי עזר]`;
+        if (typeof args.materials === 'object' && args.materials.title && args.materials.content) {
+          basePrompt += `\nכותרת: ${args.materials.title}\nתוכן: ${args.materials.content}`;
+        } else {
+          basePrompt += `\n${args.materials}`;  
+        }
+      }
+      
       // מידע על השדות הקיימים
       const existingInfo = [];
       if (topic) {
