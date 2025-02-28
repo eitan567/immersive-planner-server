@@ -1,13 +1,11 @@
 {
-    "version": 2,
-    "builds": [{ "src": "server.ts", "use": "@vercel/node" }],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "server.ts"
-      }
-    ],
-    "functions": {
-        "api/**/*.[jt]s": { "runtime": "vercel-deno@3.1.0" }
-    }
-  }
+  "version": 2,
+  "builds": [
+    { "src": "server.ts", "use": "@vercel/node" },
+    { "src": "api/**/*.[jt]s", "use": "vercel-deno@3.1.0" }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "src": "/(.*)", "dest": "server.ts" }
+  ]
+}
