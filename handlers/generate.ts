@@ -1,7 +1,7 @@
 import { McpError, ErrorCode } from "@modelcontextprotocol/sdk/types.js";
-import { ToolHandler } from "./types.ts";
-import { AIProvider } from "../providers/types.ts";
-import { generateFullLessonPrompt } from "../prompts/index.ts";
+import { ToolHandler } from "./types";
+import { AIProvider } from "../providers/types";
+import { generateFullLessonPrompt } from "../prompts/index";
 
 export interface GenerateFullLessonArgs {
   topic?: string;

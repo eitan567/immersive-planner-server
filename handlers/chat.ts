@@ -1,5 +1,5 @@
-import { AIProvider } from "../providers/types.ts";
-import { ToolHandler } from "./types.ts";
+import { AIProvider } from "../providers/types";
+import { ToolHandler } from "./types";
 
 export interface ChatArgs {
   message: string;

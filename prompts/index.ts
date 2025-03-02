@@ -1,4 +1,4 @@
-// import { VALID_POSITION_TYPES, VALID_SPACE_USAGE, VALID_SCREEN_TYPES } from '../utils/mappings.ts';
+// import { VALID_POSITION_TYPES, VALID_SPACE_USAGE, VALID_SCREEN_TYPES } from '../utils/mappings';
 
 export interface PromptConfig {
   context: string;

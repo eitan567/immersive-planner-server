@@ -1,4 +1,4 @@
-// import { serve } from "https://deno.land/std@0.181.0/http/server.ts";
+// import { serve } from "https://deno.land/std@0.181.0/http/server";
 // import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 // import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 // import {
@@ -8,23 +8,23 @@
 //   McpError
 // } from "@modelcontextprotocol/sdk/types.js";
 
-// import { CONFIG } from "./config.ts";
-// import { AIProvider } from "./providers/types.ts";
-// import { logDebug, logError } from "./utils/logging.ts";
-// // import { createCorsHeaders } from "./utils/http.ts";
+// import { CONFIG } from "./config";
+// import { AIProvider } from "./providers/types";
+// import { logDebug, logError } from "./utils/logging";
+// // import { createCorsHeaders } from "./utils/http";
 
 // import {
 //   GenerateSuggestionArgs,
 //   UpdateLessonFieldArgs
-// } from "./types.ts";
+// } from "./types";
 
 // // Providers
-// import { LMStudioProvider } from "./providers/lmstudio.ts";
-// import { OpenAIProvider } from "./providers/openai.ts";
-// import { AnthropicProvider } from "./providers/anthropic.ts";
-// import { GoogleAIProvider } from "./providers/google.ts";
-// import { DeepSeekProvider } from "./providers/deepseek.ts";
-// import { OllamaProvider } from "./providers/ollama.ts";
+// import { LMStudioProvider } from "./providers/lmstudio";
+// import { OpenAIProvider } from "./providers/openai";
+// import { AnthropicProvider } from "./providers/anthropic";
+// import { GoogleAIProvider } from "./providers/google";
+// import { DeepSeekProvider } from "./providers/deepseek";
+// import { OllamaProvider } from "./providers/ollama";
 
 // /**
 //  * Checks if the LM Studio server is reachable and healthy.

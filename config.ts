@@ -1,4 +1,5 @@
-import * as dotenv from "https://deno.land/std@0.181.0/dotenv/mod.ts";
+import * as dotenv from "https://deno.land/std@0.181.0/dotenv/mod";
+import { Deno } from "https://deno.land/std@0.181.0/types/mod.d";
 
 console.log('Loading environment variables...');
 

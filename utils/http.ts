@@ -1,4 +1,4 @@
-import { DEFAULT_TIMEOUT } from '../providers/types.ts';
+import { DEFAULT_TIMEOUT } from '../providers/types';
 
 export interface RequestOptions {
   method?: string;

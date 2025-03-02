@@ -1,8 +1,8 @@
 import { McpError, ErrorCode } from "@modelcontextprotocol/sdk/types.js";
-import { ToolHandler } from "./types.ts";
-import { AIProvider } from "../providers/types.ts";
-import { generateSuggestionPrompt } from "../prompts/index.ts";
-import { mapPositionToEnglish, mapCategoryToEnglish } from "../utils/mappings.ts";
+import { ToolHandler } from "./types";
+import { AIProvider } from "../providers/types";
+import { generateSuggestionPrompt } from "../prompts/index";
+import { mapPositionToEnglish, mapCategoryToEnglish } from "../utils/mappings";
 
 export interface GenerateSuggestionArgs {
   context: string;

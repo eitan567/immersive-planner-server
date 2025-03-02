@@ -1,5 +1,5 @@
-import { AIProvider, ProviderConfig } from './types.ts';
-import { logDebug, logError, logRequest, logResponse } from '../utils/logging.ts';
+import { AIProvider, ProviderConfig } from './types';
+import { logDebug, logError, logRequest, logResponse } from '../utils/logging';
 import OpenAI from 'openai';
 
 export class DeepSeekProvider implements AIProvider {

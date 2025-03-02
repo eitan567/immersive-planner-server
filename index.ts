@@ -1,12 +1,12 @@
-import { OpenAIProvider } from "./providers/openai.ts";
-import { AnthropicProvider } from "./providers/anthropic.ts";
-import { GoogleAIProvider } from "./providers/google.ts";
-import { LMStudioProvider } from "./providers/lmstudio.ts";
-import { DeepSeekProvider } from "./providers/deepseek.ts";
-import { OllamaProvider } from "./providers/ollama.ts";
-import { CONFIG } from "./config.ts";
-import AIServer from "./server.ts";
-import { serve } from "https://deno.land/std@0.181.0/http/server.ts";
+import { OpenAIProvider } from "./providers/openai";
+import { AnthropicProvider } from "./providers/anthropic";
+import { GoogleAIProvider } from "./providers/google";
+import { LMStudioProvider } from "./providers/lmstudio";
+import { DeepSeekProvider } from "./providers/deepseek";
+import { OllamaProvider } from "./providers/ollama";
+import { CONFIG } from "./config";
+import AIServer from "./server";
+import { serve } from "https://deno.land/std@0.181.0/http/server";
 
 let provider;
 

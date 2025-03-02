@@ -1,6 +1,6 @@
-import { AIProvider, ProviderConfig } from './types.ts';
-import { makeRequest } from '../utils/http.ts';
-import { logDebug, logError, logRequest, logResponse } from '../utils/logging.ts';
+import { AIProvider, ProviderConfig } from './types';
+import { makeRequest } from '../utils/http';
+import { logDebug, logError, logRequest, logResponse } from '../utils/logging';
 
 export class OpenAIProvider implements AIProvider {
   private readonly apiKey: string;
