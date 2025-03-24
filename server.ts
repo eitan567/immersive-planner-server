@@ -5,7 +5,7 @@ import {
   ErrorCode,
   ListToolsRequestSchema,
   McpError
-} from "@modelcontextprotocol/sdk/types.js";
+}  from "npm:@modelcontextprotocol/sdk/types.js";
 
 import { AIProvider } from "./providers/types.ts";
 import { logDebug, logError } from "./utils/logging.ts";
