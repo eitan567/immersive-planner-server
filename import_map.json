@@ -1,0 +1,5 @@
+{
+    "imports": {
+      "@modelcontextprotocol/": "./node_modules/@modelcontextprotocol/"
+    }
+  }
