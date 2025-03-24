@@ -1,4 +1,4 @@
-// import { serve } from "https://deno.land/std@0.181.0/http/server";
+// import { serve } from "https://deno.land/std@0.224.0/http/server";
 // import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 // import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 // import {

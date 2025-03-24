@@ -6,7 +6,7 @@ import { DeepSeekProvider } from "./providers/deepseek";
 import { OllamaProvider } from "./providers/ollama";
 import { CONFIG } from "./config";
 import AIServer from "./server";
-import { serve } from "https://deno.land/std@0.181.0/http/server";
+import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 
 let provider;
 
@@ -63,7 +63,7 @@ switch (CONFIG.AI_PROVIDER.toLowerCase()) {
 const server = new AIServer(provider);
 
 // Connect to MCP over stdio
-server.initialize().catch(error => {
+server.initialize().catch((error: unknown) => {
   console.error("Failed to initialize server:", error);
   Deno.exit(1);
 });
