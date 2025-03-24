@@ -7,15 +7,15 @@ import {
   McpError
 } from "@modelcontextprotocol/sdk/types.js";
 
-import { AIProvider } from "./providers/types";
-import { logDebug, logError } from "./utils/logging";
+import { AIProvider } from "./providers/types.ts";
+import { logDebug, logError } from "./utils/logging.ts";
 import {
   ChatHandler,
   SuggestionHandler,
   UpdateHandler,
   GenerateHandler,
   ToolHandler
-} from "./handlers/index";
+} from "./handlers/index.ts";
 
 interface McpRequest {
   jsonrpc: string;
