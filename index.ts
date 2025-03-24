@@ -6,7 +6,7 @@ import { DeepSeekProvider } from "./providers/deepseek";
 import { OllamaProvider } from "./providers/ollama";
 import { CONFIG } from "./config";
 import AIServer from "./server";
-import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
+import { serve } from "https://deno.land/std@0.225.0/http/server.ts";
 
 let provider;
 

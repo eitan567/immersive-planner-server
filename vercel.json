@@ -4,7 +4,7 @@
     { "src": "server.ts", "use": "@vercel/node" },
     { 
       "src": "api/**/*.[jt]s", 
-      "use": "vercel-deno@3.1.0",
+      "use": "vercel-deno@2.2.5",
       "config": {
         "importMap": "import_map.json"
       }
